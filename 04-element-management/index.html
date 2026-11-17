@@ -1,0 +1,929 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator lab for Cisco Crosswork Network Controller 7.2.1-SP">
+      
+      
+      
+      
+        <link rel="prev" href="../03-active-topology/">
+      
+      
+        <link rel="next" href="../05-sr-te/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>4. Element management - Crosswork CNC Hands-on</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4-element-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crosswork CNC Hands-on" class="md-header__button md-logo" aria-label="Crosswork CNC Hands-on" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crosswork CNC Hands-on
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              4. Element management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crosswork CNC Hands-on" class="md-nav__button md-logo" aria-label="Crosswork CNC Hands-on" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crosswork CNC Hands-on
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-cnc-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. CNC management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-active-topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Active Topology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Element management
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Element management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compare-cnc-with-a-generic-nms-network-management-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare CNC with a generic NMS (Network Management System)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-detailed-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Detailed inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-network-devices-and-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Network devices and inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-configuration-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Configuration backup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-configuration-templates-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Configuration templates (read only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-alarms-and-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Alarms and events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#done-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Done when
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-sr-te/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. SR-TE and SRv6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-l3vpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. L3VPN provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-l2vpn-vpws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. L2VPN (VPWS) provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-l2vpn-vpls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. L2VPN (VPLS) provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#compare-cnc-with-a-generic-nms-network-management-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Compare CNC with a generic NMS (Network Management System)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-detailed-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Detailed inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-network-devices-and-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Network devices and inventory
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-configuration-backup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Configuration backup
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-configuration-templates-read-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Configuration templates (read only)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-alarms-and-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Alarms and events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Performance
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#done-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Done when
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="4-element-management">4. Element management<a class="headerlink" href="#4-element-management" title="Permanent link">&para;</a></h1>
+<p><strong>Time:</strong> 20 minutes.</p>
+<p><strong>Objective:</strong> Use CNC Element Management Functions to check node status, hardware inventory, configuration archive, alarms, and interface performance. Do not change any device configuration in this chapter.</p>
+<p>Element Management Functions in CNC 7.2 cover device onboarding, inventory, faults, metrics, software images, configuration backup, and configuration templates.</p>
+<h2 id="compare-cnc-with-a-generic-nms-network-management-system">Compare CNC with a generic NMS (Network Management System)<a class="headerlink" href="#compare-cnc-with-a-generic-nms-network-management-system" title="Permanent link">&para;</a></h2>
+<p>CNC is the controller view of the same devices, with IGP and SR context. The following table compares CNC with a generic NMS.</p>
+<table>
+<thead>
+<tr>
+<th>Generic NMS</th>
+<th>CNC</th>
+<th>What is different</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Node list, ICMP/SNMP reachability</td>
+<td><strong>Device Management &gt; Network Devices</strong></td>
+<td>CNC also shows the credential profile and the Data Gateway mapping that collection uses</td>
+</tr>
+<tr>
+<td>Hardware inventory (chassis, modules, serials)</td>
+<td><strong>Device Management &gt; Network Inventory</strong></td>
+<td>Same concept: serial number, product ID, and alarm badge on each part</td>
+</tr>
+<tr>
+<td>Network map</td>
+<td><strong>Topology</strong> (chapter 3)</td>
+<td>The CNC map is built from IGP/SRv6 information from SR-PCE, not only from Layer 3 discovery</td>
+</tr>
+<tr>
+<td>Alert console / trap viewer</td>
+<td><strong>Alerts &gt; Alarms and Events</strong></td>
+<td>CNC splits system, network, and device alarms. An alarm stays until it clears; an event is a point in time</td>
+</tr>
+<tr>
+<td>Interface utilization and thresholds</td>
+<td><strong>Device Management &gt; Performance Policies</strong>, plus link utilization on the topology map</td>
+<td>CNC Optimization Engine colors links from collected counters. Performance Policies raise threshold-crossing alarms</td>
+</tr>
+<tr>
+<td>NCM config archive, compare, restore</td>
+<td><strong>Device Management &gt; Configuration Backup and Restore</strong></td>
+<td>CNC can also back up on configuration change. Restore is out of scope for this lab</td>
+</tr>
+<tr>
+<td>NCM config change jobs / scripts</td>
+<td><strong>Device Management &gt; Configuration Templates</strong></td>
+<td>Parameterized CLI (Apache Velocity). These are different from the NSO L2/L3VPN templates in chapters 6 and 7</td>
+</tr>
+</tbody>
+</table>
+<p>Use the table to map generic NMS functions to CNC. The rest of this chapter covers the CNC side.</p>
+<h2 id="41-detailed-inventory">4.1 Detailed inventory<a class="headerlink" href="#41-detailed-inventory" title="Permanent link">&para;</a></h2>
+<ol>
+<li>In Topology, click any node, for example <strong>C8711-4-P</strong>, then click <strong>Detailed inventory</strong> button.
+<img alt="dcloud" src="../img/04/01-1-detailed-inventory.png" /></li>
+<li>You will see the hierarchical view of the inventory. Explore the graph and see how easy it is to grasp the relationship between the inventory. 
+<img alt="dcloud" src="../img/04/01-2-hierarchy.png" /></li>
+</ol>
+<h2 id="42-network-devices-and-inventory">4.2 Network devices and inventory<a class="headerlink" href="#42-network-devices-and-inventory" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Go to <strong>Device Management &gt; Network Devices</strong>.
+<img alt="dcloud" src="../img/04/01-network-devices.png" /></li>
+<li>Find the headend from chapter 3. Record operational state, reachability, and the credential profile name.</li>
+<li>Go to <strong>Device Management &gt; Network Inventory</strong>.</li>
+<li>Filter by the headend hostname (C8711-1-PE) or product family.
+<img alt="dcloud" src="../img/04/02-network-inventory.png" /></li>
+<li>Open the chassis, one route processor or line card, and one pluggable if the inventory lists them.</li>
+<li>Read the alarm summary on that inventory row.</li>
+</ol>
+<p><strong>Result:</strong> You can navigate from a hostname to a chassis and a module.</p>
+<p>If a device stays unreachable, check its credentials, IPv6 reachability to the management address, and whether the CML node has booted.</p>
+<h2 id="43-configuration-backup">4.3 Configuration backup<a class="headerlink" href="#43-configuration-backup" title="Permanent link">&para;</a></h2>
+<p>CNC archives device configurations, compares two archives, and can restore them. In this lab, you only view the archive, as in an NCM config view.</p>
+<ol>
+<li>Go to <strong>Device Management &gt; Configuration Backup and Restore</strong>.</li>
+<li>Find the headend.</li>
+<li>Open the latest archived configuration. Identify the hostname and the segment-routing or IS-IS section.
+<img alt="dcloud" src="../img/04/03-config.png" /></li>
+<li>If two archives exist, open the comparison and note one difference, or confirm that they match.</li>
+<li>Do not use <strong>Schedule backup</strong> or <strong>Restore</strong>.</li>
+</ol>
+<p><strong>Result:</strong> You have viewed an actual archived configuration for the headend.</p>
+<p>When automatic backup on configuration change is enabled under <strong>Device Management &gt; Configuration Preferences</strong>, the archive stays useful after chapters 6 and 7. Check the preference and leave the values unchanged.
+<img alt="dcloud" src="../img/04/04-config-preference.png" /></p>
+<h2 id="44-configuration-templates-read-only">4.4 Configuration templates (read only)<a class="headerlink" href="#44-configuration-templates-read-only" title="Permanent link">&para;</a></h2>
+<p>Device templates under Device Management are parameterized CLI scripts. They are intended for repeatable underlay or day-1 configuration. They are not the NSO L2VPN/L3VPN function-pack templates.</p>
+<ol>
+<li>Go to <strong>Device Management &gt; Configuration Templates</strong>.</li>
+<li>Open one existing template, if any exist. Read the device types it targets and one variable it expects.</li>
+<li>You can use configuration templates to run a set of commands. Create a new template with the following values:<ul>
+<li>Name: collect-outputs</li>
+<li>Enable "Read template for troubleshooting"</li>
+<li>Authorization: admin
+<img alt="dcloud" src="../img/04/05-template1.png" /></li>
+</ul>
+</li>
+<li>Select "Cisco 8711-32FH" as the device type.
+<img alt="dcloud" src="../img/04/06-template2.png" /></li>
+<li>Do not define any variables. Click <strong>Next</strong>.
+<img alt="dcloud" src="../img/04/07-template3.png" /></li>
+<li>Enter the show commands in <strong>Configure template script</strong>.
+<img alt="dcloud" src="../img/04/08-template4.png" /></li>
+<li>Deploy the template you created.
+<img alt="dcloud" src="../img/04/09-template5.png" /></li>
+<li>Go to <strong>Jobs</strong> to check the progress.
+<img alt="dcloud" src="../img/04/10-template6.png" /></li>
+</ol>
+<h2 id="45-alarms-and-events">4.5 Alarms and events<a class="headerlink" href="#45-alarms-and-events" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Go to <strong>Alerts &gt; Alarms and Events</strong>.</li>
+<li>Stay on <strong>Alarms</strong>. Use the category list to see system, network, and device alarms as separate sets.</li>
+<li>Filter to the headend if the filter allows it.
+<img alt="dcloud" src="../img/04/11-alarms.png" /></li>
+<li>If an alarm is present, record severity, source, and whether it is acknowledged. Do not acknowledge, clear, or annotate alarms unless the instructor assigns a lab alarm to you.</li>
+<li>Switch <strong>Show</strong> from Alarms to <strong>Events</strong>.</li>
+<li>Read the newest event. An event is a moment in time. An alarm remains until it clears.
+<img alt="dcloud" src="../img/04/12-events.png" /></li>
+</ol>
+<p><strong>Result:</strong> You can open both views. An empty alarm list is normal on a healthy CML lab.</p>
+<p>You will use this page again in chapter 9.</p>
+<h2 id="46-performance">4.6 Performance<a class="headerlink" href="#46-performance" title="Permanent link">&para;</a></h2>
+<p>Link colors on the topology map come from interface utilization collected for Optimization Engine. Element Management Functions add polling policies.</p>
+<ol>
+<li>Go to <strong>Device Management &gt; Performance Policies</strong>.
+<img alt="dcloud" src="../img/04/13-performance-policies.png" /></li>
+<li>Click <strong>Create new policy</strong> and see what other policies can be created.
+<img alt="dcloud" src="../img/04/15-others.png" /></li>
+<li>Open one existing policy, if any exist. Read which devices it covers, how often it polls, and which threshold raises an alarm.</li>
+<li>Return to the <strong>Topology</strong> and click any link. Open <strong>History</strong> and confirm the utilization and traffic rate.
+<img alt="dcloud" src="../img/04/14-perf-topology.png" /></li>
+<li>Leave the policy enable/disable switch unchanged.</li>
+</ol>
+<p><strong>Result:</strong> You know where a threshold is defined, and you can identify one live counter.</p>
+<h2 id="done-when">Done when<a class="headerlink" href="#done-when" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> You can map the generic NMS functions (node list, inventory, alerts, config archive, and utilization) to the corresponding CNC pages.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> The headend is in Network Devices and in Network Inventory.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> You opened an archived configuration and did not restore it.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> You opened Alarms and Events.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> You compared one interface counter with the topology utilization from chapter 3.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>

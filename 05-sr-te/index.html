@@ -1,0 +1,1755 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Operator lab for Cisco Crosswork Network Controller 7.2.1-SP">
+      
+      
+      
+      
+        <link rel="prev" href="../04-element-management/">
+      
+      
+        <link rel="next" href="../06-l3vpn/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>5. SR-TE and SRv6 - Crosswork CNC Hands-on</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.57a0d79d.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5-sr-te-and-srv6-optional" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Crosswork CNC Hands-on" class="md-header__button md-logo" aria-label="Crosswork CNC Hands-on" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Crosswork CNC Hands-on
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              5. SR-TE and SRv6
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Crosswork CNC Hands-on" class="md-nav__button md-logo" aria-label="Crosswork CNC Hands-on" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Crosswork CNC Hands-on
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-preparation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1. Preparation
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-cnc-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2. CNC management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-active-topology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3. Active Topology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-element-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4. Element management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. SR-TE and SRv6
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5. SR-TE and SRv6
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Terminology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-confirming-the-initial-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Confirming the initial state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-create-pcc-initiated-policy-1-exclude-red-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Create PCC-initiated policy 1 (Exclude RED link)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Create PCC-initiated policy 1 (Exclude RED link)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-5-3-1-manually-configure-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-3-1: Manually configure parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-3-2-import-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-3-2: Import JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-confirm-pcc-initiated-policy-1-exclude-red-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Confirm PCC-initiated policy 1 (Exclude RED link)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Confirm PCC-initiated policy 1 (Exclude RED link)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-cnc-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CNC GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-create-pcc-initiated-policy-2-te-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Create PCC-initiated policy 2 (TE metric)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Create PCC-initiated policy 2 (TE metric)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-5-5-1-manually-configure-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-5-1: Manually configure parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-5-2-import-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-5-2: Import JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-confirm-pcc-initiated-policy-2-te-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Confirm PCC-initiated policy 2 (TE metric)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 Confirm PCC-initiated policy 2 (TE metric)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-cnc-gui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CNC GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-cli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#done-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Done when
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-l3vpn/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6. L3VPN provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-l2vpn-vpws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7. L2VPN (VPWS) provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-l2vpn-vpls/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8. L2VPN (VPLS) provisioning
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-troubleshooting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9. Troubleshooting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51-terminology" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Terminology
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-confirming-the-initial-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Confirming the initial state
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-create-pcc-initiated-policy-1-exclude-red-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Create PCC-initiated policy 1 (Exclude RED link)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Create PCC-initiated policy 1 (Exclude RED link)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-5-3-1-manually-configure-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-3-1: Manually configure parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-3-2-import-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-3-2: Import JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-confirm-pcc-initiated-policy-1-exclude-red-link" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.4 Confirm PCC-initiated policy 1 (Exclude RED link)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.4 Confirm PCC-initiated policy 1 (Exclude RED link)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-cnc-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CNC GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-create-pcc-initiated-policy-2-te-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.5 Create PCC-initiated policy 2 (TE metric)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.5 Create PCC-initiated policy 2 (TE metric)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-5-5-1-manually-configure-parameters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-5-1: Manually configure parameters
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-5-5-2-import-json" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Option 5-5-2: Import JSON
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-confirm-pcc-initiated-policy-2-te-metric" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.6 Confirm PCC-initiated policy 2 (TE metric)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5.6 Confirm PCC-initiated policy 2 (TE metric)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#via-cnc-gui_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CNC GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-cli_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        via CLI
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#done-when" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Done when
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="5-sr-te-and-srv6-optional">5. SR-TE and SRv6 (Optional)<a class="headerlink" href="#5-sr-te-and-srv6-optional" title="Permanent link">&para;</a></h1>
+<p><strong>Time:</strong> 60 minutes.</p>
+<p><strong>Objective:</strong> Create various PCC-initiated SRv6 policies with PCE-delegated dynamic paths from CNC.</p>
+<div class="admonition warning">
+<p class="admonition-title">Note</p>
+<p>At the time of writing, Cisco 8000 platforms are yet to support SRv6 policies with head-end computed dynamic paths or PCE-initiated SRv6 policies. In addition, the CNC 7.2 built-in function pack does not support explicit paths that use IPv6 addresses or SRv6 SIDs. Therefore, this hands-on focuses on PCC-initiated SRv6 policies with PCE-delegated dynamic paths.<br />
+For details, see <a href="https://www.cisco.com/c/en/us/td/docs/iosxr/cisco8000/segment-routing-v6/srv6-config-guide-cisco8000/traffic-engineering-in-ipv6-networks-using-srv6-te/srv6-te-overview.html">Cisco 8000 Configuration Guide: Segment Routing over IPv6 Traffic Engineering (SRv6-TE)</a></p>
+</div>
+<h2 id="51-terminology">5.1 Terminology<a class="headerlink" href="#51-terminology" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Meaning in this lab</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PCC</td>
+<td>The headend router. It holds the policy configuration and has a PCEP session with SR-PCE.</td>
+</tr>
+<tr>
+<td>PCE</td>
+<td>SR-PCE in the second CML lab. It learns the topology through BGP-LS, computes paths, and reports the policies to CNC.</td>
+</tr>
+<tr>
+<td>PCC-initiated</td>
+<td>The policy configuration resides on the headend. In this lab, you create it in CNC, and CNC provisions the configuration on the headend through NSO. This is the type used in this chapter.</td>
+</tr>
+<tr>
+<td>PCE-delegated dynamic path</td>
+<td>A PCC-initiated candidate path with <code>dynamic</code> + <code>pce</code>. The headend delegates path computation to SR-PCE, and SR-PCE returns the SID list through PCEP.</td>
+</tr>
+<tr>
+<td>PCE-initiated</td>
+<td>The policy is created on SR-PCE and pushed to the headend through PCEP, without any configuration on the headend. Not used in this lab because Cisco 8000 does not support it for SRv6.</td>
+</tr>
+<tr>
+<td>Color</td>
+<td>A number that identifies the intent. Together with the endpoint, it identifies the policy. Chapter 6 binds an L3VPN to this color.</td>
+</tr>
+<tr>
+<td>Candidate path</td>
+<td>One way to reach the endpoint. The preference value determines which candidate path is selected.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="52-confirming-the-initial-state">5.2 Confirming the initial state<a class="headerlink" href="#52-confirming-the-initial-state" title="Permanent link">&para;</a></h2>
+<p>SR-PCE requires topology and SRv6 locator/SID information to compute paths. It acquires this information from the routers in the SRv6 topology via BGP-LS. In this scenario, BGP-LS sessions are established with the three PEs.</p>
+<p>Open Firefox in private browsing mode and click the "CML2 for PCE" bookmark.</p>
+<p>Then, on the SR-PCE console (cisco/cisco):</p>
+<pre><code>
+RP/0/RP0/CPU0:pce#show bgp link-state link-state neighbors brief
+Wed Nov  4 06:02:58.271 UTC
+
+Neighbor         Spk    AS  Description                         Up/Down  NBRState
+2001:db8:1::51    0 65000                                         4d20h <mark>Established</mark> 
+2001:db8:1::52    0 65000                                         4d20h <mark>Established</mark>  
+2001:db8:1::53    0 65000                                         4d20h <mark>Established</mark>  
+RP/0/RP0/CPU0:pce#
+</code></pre>
+
+<p>You can check the TEDB (Topology Database) that the PCE builds from BGP-LS by using the following command.</p>
+<p>On the SR-PCE:</p>
+<div class="highlight"><pre><span></span><code>RP/0/RP0/CPU0:pce#show pce ipv6 topology                        
+Wed Nov  4 06:08:39.763 UTC
+
+PCE's topology database - detail:
+---------------------------------
+Node 1
+  IPv6 router ID: 2001:db8::1
+  Host name: C8711-1-PE
+  ISIS system ID: 0000.0000.0001 level-2 Area-id: 49 ASN: 65000 domain ID: 32
+  SR Algo INFO:
+    ISIS system ID: 0000.0000.0001 level-2 Area-id: 49 ASN: 65000 domain ID: 32
+      SR Algo Participation:
+         0, 1, 128, 129
+      Flex-Algo Definition:
+         Flex-Algo number: 128, Priority: 128, Metric Type: IGP (0)
+         Flex-Algo number: 129, Priority: 128, Metric Type: IGP (0)
+  uN SIDs:
+    SID[0]:    ISIS system ID: 0000.0000.0001 level-2 Area-id: 49 ASN: 65000 domain ID: 32
+      SID: fcbb:bb00:1:: Behavior: uN (PSP/USD) (48)
+      LBL:32 LNL:16 FL:0 AL:80 Algo:0
+    SID[1]:    ISIS system ID: 0000.0000.0001 level-2 Area-id: 49 ASN: 65000 domain ID: 32
+      SID: fcbb:bb01:1:: Behavior: uN (PSP/USD) (48)
+      LBL:32 LNL:16 FL:0 AL:80 Algo:128
+    SID[2]:    ISIS system ID: 0000.0000.0001 level-2 Area-id: 49 ASN: 65000 domain ID: 32
+      SID: fcbb:bb02:1:: Behavior: uN (PSP/USD) (48)
+&lt; --- omitted ---&gt;
+</code></pre></div>
+<p>PCEP (Path Computation Element Communication Protocol) is a signaling protocol for exchanging SRv6-TE path information between an SR-PCE, which performs path computation, and the head-end routers (PCCs) in the network (RFC 5440).</p>
+<p>PCEP handles bidirectional communication between routers and PCEs, including path computation requests (Request), reporting and updating of computed paths (Report/Update), and delegation of control (Delegation).</p>
+<p>On the SR-PCE:</p>
+<pre><code>
+RP/0/RP0/CPU0:pce#show pce ipv6 peer 
+Wed Nov  4 06:19:07.824 UTC
+
+PCE's peer database: 
+--------------------
+<mark>Peer address: 2001:db8::1</mark>
+  State: Up
+  Capabilities: Stateful, Segment-Routing, Update, Instantiation, SRv6, SR-P2MP
+
+<mark>Peer address: 2001:db8::2</mark>
+  State: Up
+  Capabilities: Stateful, Segment-Routing, Update, Instantiation, SRv6, SR-P2MP
+
+<mark>Peer address: 2001:db8::3</mark>
+  State: Up
+  Capabilities: Stateful, Segment-Routing, Update, Instantiation, SRv6, SR-P2MP
+
+<mark>Peer address: 2001:db8::4</mark>
+  State: Up
+  Capabilities: Stateful, Segment-Routing, Update, Instantiation, SRv6, SR-P2MP
+
+<mark>Peer address: 2001:db8::5</mark>
+  State: Up
+  Capabilities: Stateful, Segment-Routing, Update, Instantiation, SRv6, SR-P2MP
+
+RP/0/RP0/CPU0:pce#
+</code></pre>
+
+<p>PCEP sessions are established with all the routers in the topology, including P4 &amp; P5. However, in real world environment, depending on the network design, establishing PCEP sessions with P routers is not a best practice unless they act as head-end of SRv6-TE policies as well.</p>
+<p>Open Firefox in private browsing mode and click the "CML2 for XR" bookmark.
+On the PCC routers (PE1, PE2, PE3):</p>
+<div class="highlight"><pre><span></span><code>RP/0/RP0/CPU0:C8711-1-PE#show segment-routing traffic-eng pcc ipv6 peer 
+Wed Nov  4 06:20:23.622 UTC
+
+PCC's peer database:
+--------------------
+
+Peer address: 2001:db8::6, 
+  Precedence: 255, (best PCE)
+  State up
+  Capabilities: Stateful, Update, Segment-Routing, Instantiation, SRv6, SR P2MP
+
+RP/0/RP0/CPU0:C8711-1-PE#
+</code></pre></div>
+<p>In addition, the affinity color RED (bit-position 3) is set on the link between P4 and PE2.</p>
+<p>On the P4 and PE2 routers:</p>
+<div class="highlight"><pre><span></span><code>RP/0/RP0/CPU0:C8711-4-P#show run segment-routing traffic-eng interface FourHundredGigE0/0/0/1
+Wed Nov  4 06:24:46.097 UTC
+segment-routing
+ traffic-eng
+  interface FourHundredGigE0/0/0/1
+   affinity
+    name RED
+   !
+  !
+ !
+!
+
+RP/0/RP0/CPU0:C8711-4-P#show run segment-routing traffic-eng affinity-map 
+Wed Nov  4 06:24:55.533 UTC
+segment-routing
+ traffic-eng
+  affinity-map
+   name RED bit-position 3
+  !
+ !
+!
+</code></pre></div>
+<p>You can also check the affinity bit in the Admin groups field by clicking the link between P4 and PE2 in the CNC GUI.</p>
+<p><img alt="dcloud" src="../img/05/01_p4-pe2_link.png" /></p>
+<h2 id="53-create-pcc-initiated-policy-1-exclude-red-link">5.3 Create PCC-initiated policy 1 (Exclude RED link)<a class="headerlink" href="#53-create-pcc-initiated-policy-1-exclude-red-link" title="Permanent link">&para;</a></h2>
+<p>Configure an SRv6-TE policy with the following conditions:</p>
+<ul>
+<li>Policy Name: PE1-PE2_color10</li>
+<li>Headend: PE1</li>
+<li>Endpoint: PE2</li>
+<li>Optimization: IGP</li>
+<li>Constraint: exclude RED link</li>
+</ul>
+<p>Since all links in this topology use the default cost, the path from PE1 to PE2 is computed as follows, avoiding the link between P4 and PE2.</p>
+<p><img alt="dcloud" src="../img/05/02_pe1-pe2_color10.png" /></p>
+<p>You can configure the policy using either of the following two methods.<br />
+<a href="#option-5-3-1-manually-configure-parameters">Option 1: Manually configure parameters</a><br />
+<a href="#option-5-3-2-import-json">Option 2: Import JSON</a>  </p>
+<h3 id="option-5-3-1-manually-configure-parameters">Option 5-3-1: Manually configure parameters<a class="headerlink" href="#option-5-3-1-manually-configure-parameters" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Go to <strong>Services &amp; Traffic Engineering &gt; Traffic Engineering</strong>, <strong>SRv6</strong> tab, then click <strong>Create</strong> &gt; <strong>PCC-init</strong>.
+    <img alt="dcloud" src="../img/05/03_create_pcc-init.png" /></p>
+</li>
+<li>
+<p>Click the <strong>+</strong> button.
+    <img alt="dcloud" src="../img/05/04_add_sr-policy.png" /></p>
+</li>
+<li>
+<p>Set the following:</p>
+<ul>
+<li>name: <code>PE1-PE2_color10</code></li>
+<li>headend: C8711-1-PE</li>
+<li>tail-end: 2001:db8::2</li>
+<li>color: 10</li>
+<li>preference: 100</li>
+<li>st-te-path-choice: dynamic-path (enable <code>dynamic</code> and select <code>pce</code>)</li>
+<li>metric-type: <code>igp</code></li>
+<li>constraints: enable <code>affinity</code> and add a rule with an action <code>exclude-any</code> color <code>RED</code>.</li>
+<li>srv6: enable <code>locator</code> (locator-name: <code>srv6</code>, behavior: <code>ub6-insert-reduced</code>, and binding-sid-type: <code>srv6-dynamic</code>).</li>
+</ul>
+<p><img alt="dcloud" src="../img/05/05_sr-policy1_name.png" />
+<img alt="dcloud" src="../img/05/06_sr-policy1_settings1.png" />
+<img alt="dcloud" src="../img/05/07_sr-policy1_settings2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Dry-run</strong> to confirm the configuration.</p>
+<p><img alt="dcloud" src="../img/05/08_sr-policy1_dry-run1.png" /></p>
+<p>You can switch the display by using <strong>Show changes</strong> in the upper right.
+<img alt="dcloud" src="../img/05/09_sr-policy1_dry-run2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Commit changes</strong>.</p>
+<p><img alt="dcloud" src="../img/05/10_sr-policy1_commit.png" /></p>
+</li>
+</ol>
+<h3 id="option-5-3-2-import-json">Option 5-3-2: Import JSON<a class="headerlink" href="#option-5-3-2-import-json" title="Permanent link">&para;</a></h3>
+<p>You can also configure the policy by loading a JSON file.
+The sample JSON files were exported from the following screen.</p>
+<p><img alt="dcloud" src="../img/05/11_export_samples.png" /></p>
+<p>In this lab, load the JSON file prepared in advance by using the procedure below.</p>
+<ol>
+<li>
+<p>Open a terminal and clone the JSON file repository from Git.</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/mekawaba/cnc-payloads.git
+</code></pre></div>
+<p><img alt="dcloud" src="../img/05/12_open_terminal.png" /></p>
+</li>
+<li>
+<p>Load <strong>Home &gt; cnc-payloads &gt; PE1-PE2_color10.json</strong>.</p>
+<p><img alt="dcloud" src="../img/05/13_sr-policy1_payload.png" /></p>
+<details class="note">
+<summary>PE1-PE2_color10.json</summary>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"cisco-sr-te-cfp:sr-te"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"cisco-sr-te-cfp-sr-policies:policies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PE1-PE2_color10"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"head-end"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C8711-1-PE"</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"srv6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"locator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"locator-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"srv6"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"behavior"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ub6-insert-reduced"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"binding-sid-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"srv6-dynamic"</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">"tail-end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2001:db8::2"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"preference"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"dynamic"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"constraints"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                    </span><span class="nt">"affinity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                      </span><span class="nt">"rule"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                        </span><span class="p">{</span>
+<span class="w">                          </span><span class="nt">"action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"exclude-any"</span><span class="p">,</span>
+<span class="w">                          </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">                            </span><span class="s2">"RED"</span>
+<span class="w">                          </span><span class="p">]</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                      </span><span class="p">]</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                  </span><span class="p">},</span>
+<span class="w">                  </span><span class="nt">"pce"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">                  </span><span class="nt">"metric-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"igp"</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Confirm that the following parameters are set.</p>
+<ul>
+<li>name: <code>PE1-PE2_color10</code></li>
+<li>headend: C8711-1-PE</li>
+<li>endpoint: 2001:db8::2</li>
+<li>color: 10</li>
+<li>preference: 100</li>
+<li>st-te-path-choice: dynamic-path (enable <code>dynamic</code> and select <code>pce</code>)</li>
+<li>metric-type: <code>igp</code></li>
+<li>constraints: enable <code>affinity</code> and add a rule with an action <code>exclude-any</code> color <code>RED</code>.</li>
+<li>srv6: enable <code>locator</code> (locator-name: <code>srv6</code>, behavior: <code>ub6-insert-reduced</code>, and binding-sid-type: <code>srv6-dynamic</code>).</li>
+</ul>
+<p><img alt="dcloud" src="../img/05/06_sr-policy1_settings1.png" />
+<img alt="dcloud" src="../img/05/07_sr-policy1_settings2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Dry-run</strong> to confirm the configuration. </p>
+<p><img alt="dcloud" src="../img/05/08_sr-policy1_dry-run1.png" /></p>
+<p>You can switch the display by using <strong>Show changes</strong> in the upper right.
+<img alt="dcloud" src="../img/05/09_sr-policy1_dry-run2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Commit changes</strong>.</p>
+<p><img alt="dcloud" src="../img/05/10_sr-policy1_commit.png" /></p>
+</li>
+</ol>
+<h2 id="54-confirm-pcc-initiated-policy-1-exclude-red-link">5.4 Confirm PCC-initiated policy 1 (Exclude RED link)<a class="headerlink" href="#54-confirm-pcc-initiated-policy-1-exclude-red-link" title="Permanent link">&para;</a></h2>
+<h3 id="via-cnc-gui">via CNC GUI<a class="headerlink" href="#via-cnc-gui" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Click <strong>PE1-PE2_color10</strong></p>
+<p><img alt="dcloud" src="../img/05/14_sr-policy1_confirm.png" /></p>
+</li>
+<li>
+<p>Confirm the details of the SR policy.</p>
+<p>As expected, the path avoids the RED link and goes through PE3.
+<img alt="dcloud" src="../img/05/15_sr-policy1_detail1.png" /></p>
+<p>In the IGP path, you can see that it goes through P5. In the Summary on the right, you can also confirm that the Admin state and Oper state are Up, and check the Binding SID.
+<img alt="dcloud" src="../img/05/16_sr-policy1_detail2.png" /></p>
+<p>In the Candidate path, you can see that the uN SIDs of PE3 and PE2 are included in the SID list.
+<img alt="dcloud" src="../img/05/17_sr-policy1_detail3.png" /></p>
+</li>
+</ol>
+<h3 id="via-cli">via CLI<a class="headerlink" href="#via-cli" title="Permanent link">&para;</a></h3>
+<p>On PE1:</p>
+<pre><code>
+RP/0/RP0/CPU0:C8711-1-PE#show segment-routing traffic-eng policy name srte_c_10_ep_2001:db8::2
+Wed Nov  4 10:27:57.961 UTC
+
+SR-TE policy database
+---------------------
+
+Color: 10, End-point: 2001:db8::2
+  Name: srte_c_10_ep_2001:db8::2
+  Status:
+    <mark>Admin: up  Operational: up</mark> for 00:17:41 (since Nov  4 10:10:16.196)
+  Candidate-paths:
+    Preference: 100 (configuration) (active)
+      Name: srte_c_10_ep_2001:db8::2
+      Requested BSID: dynamic
+      PCC info:
+        Symbolic name: cfg_srte_c_10_ep_2001:db8::2_discr_100
+        PLSP-ID: 2
+      Constraints:
+        Protection Type: protected-preferred
+        Affinity:
+          exclude-any:
+          <mark>RED</mark>
+        Maximum SID Depth: 7 
+      Dynamic (pce 2001:db8::6) (valid)
+        Metric Type: IGP (IANA PCEP/IGP: 1/0), Path Accumulated Metric: 30 
+          SID[0]: fcbb:bb00:3::/48 Behavior: uN (PSP/USD) (48)
+                  Format: f3216
+                  LBL:32 LNL:16 FL:0 AL:80
+                  Address: 2001:db8::3
+          SID[1]: fcbb:bb00:2::/48 Behavior: uN (PSP/USD) (48)
+                  Format: f3216
+                  LBL:32 LNL:16 FL:0 AL:80
+                  Address: 2001:db8::2
+      SRv6 Information: 
+        Locator: srv6
+        Binding SID requested: Dynamic
+        Binding SID behavior: uB6 (PSP/USD Insert.Red)
+        Explicit binding SID enforced: No
+        Install Final Node SID: No
+  Attributes:
+    Binding SID: fcbb:bb00:1:e002::
+    Forward Class: Not Configured
+    Steering labeled-services disabled: no
+    Steering BGP disabled: no
+    IPv6 caps enable: yes
+    Invalidation drop enabled: no
+    Max Install Standby Candidate Paths: 0
+    Path Type: SRV6
+
+RP/0/RP0/CPU0:C8711-1-PE#
+RP/0/RP0/CPU0:C8711-1-PE#show segment-routing srv6 locator srv6 sid
+Wed Nov  4 10:36:42.046 UTC
+SID                         Behavior          Identification                    Owner               State  RW
+--------------------------  ----------------  --------------------------------  ------------------  -----  --
+fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
+fcbb:bb00:1:e000::          uA (PSP/USD)      [FH0/0/0/0, Link-Local]:0         isis-1              InUse  Y 
+fcbb:bb00:1:e001::          uA (PSP/USD)      [FH0/0/0/1, Link-Local]:0         isis-1              InUse  Y 
+<mark>fcbb:bb00:1:e002::          uB6 (PSP/USD Insert.Red)  'srte_c_10_ep_2001:db8::2' (10, 2001:db8::2)  xtc_srv6            InUse  Y</mark>
+RP/0/RP0/CPU0:C8711-1-PE#
+</code></pre>
+
+<p>On the SR-PCE:</p>
+<pre><code>
+RP/0/RP0/CPU0:pce#show pce lsp detail
+Wed Nov  4 10:33:48.887 UTC
+
+PCE's tunnel database: 
+----------------------
+PCC 2001:db8::1: 
+
+Tunnel Name: cfg_srte_c_10_ep_2001:db8::2_discr_100
+Color: 10
+Interface Name: srte_c_10_ep_2001:db8::2
+ LSPs:
+  LSP[0]:
+   source 2001:db8::1, destination 2001:db8::2, tunnel ID 2, LSP ID 2
+   <mark>State: Admin up, Operation active</mark>
+   Setup type: SRv6
+   Binding SID: fcbb:bb00:1:e002:: Behavior: uB6 (PSP/USD Insert.Red) (79)
+                LBL:32 LNL:16 FL:16 AL:0
+   Maximum SID Depth: 7
+   Preference: 100
+   Bandwidth: requested 0 kbps, applied 0 kbps
+   <mark>Affinity: exclude-any 0x8</mark> include-any 0x0 include-all 0x0
+   Protection type: protected-preferred
+   Prefix-SID algorithm: 0 (set: 0)
+   PCEP information: 
+     PLSP-ID 0x2, flags: D:1 S:0 R:0 A:1 O:2 C:0
+   LSP Role: Single LSP
+   State-sync PCE: None
+   PCC: 2001:db8::1
+   LSP is subdelegated to: None
+   LSP is subdelegated over GRPC: None
+   Reported path: 
+     Metric type: IGP (1), Accumulated Metric 30
+      SID[0]: fcbb:bb00:3:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::3
+      SID[1]: fcbb:bb00:2:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::2
+   Computed path: (Local PCE)
+     Computed Time: Wed Nov 04 10:10:35 UTC 2026 (00:23:13 ago)
+     Metric type: IGP (1), Accumulated Metric 30
+      SID[0]: fcbb:bb00:3:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::3
+      SID[1]: fcbb:bb00:2:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::2
+   Reverse path: (Local PCE) 
+     None 
+     Computed Time: Wed Nov 04 10:10:35 UTC 2026 (00:23:13 ago)
+   Recorded path: 
+     None
+   Disjoint Group Information: 
+     None
+   SR Policy Association Group:
+     Color: 10, Endpoint: 2001:db8::2
+     Policy Name: srte_c_10_ep_2001:db8::2
+     Preference: 100
+     CP Name: srte_c_10_ep_2001:db8::2
+
+RP/0/RP0/CPU0:pce#
+</code></pre>
+
+<h2 id="55-create-pcc-initiated-policy-2-te-metric">5.5 Create PCC-initiated policy 2 (TE metric)<a class="headerlink" href="#55-create-pcc-initiated-policy-2-te-metric" title="Permanent link">&para;</a></h2>
+<p>First, configure a TE metric on the link between P5 and PE3.
+<div class="highlight"><pre><span></span><code>segment-routing
+ traffic-eng
+  interface FourHundredGigE0/0/0/1
+   metric 100
+  !
+ !
+!
+</code></pre></div></p>
+<p>On the P5 and PE3:
+<div class="highlight"><pre><span></span><code>RP/0/RP0/CPU0:C8711-5-P#conf t
+Wed Nov  4 10:55:54.104 UTC
+RP/0/RP0/CPU0:C8711-5-P(config)#segment-routing traffic-eng 
+RP/0/RP0/CPU0:C8711-5-P(config-sr-te)#interface FourHundredGigE 0/0/0/1
+RP/0/RP0/CPU0:C8711-5-P(config-sr-if)#metric 100
+RP/0/RP0/CPU0:C8711-5-P(config-sr-if)#commit
+Wed Nov  4 10:56:26.557 UTC
+RP/0/RP0/CPU0:C8711-5-P(config-sr-if)#end
+RP/0/RP0/CPU0:C8711-5-P#
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>RP/0/RP0/CPU0:C8711-3-PE#conf t
+Wed Nov  4 10:57:27.819 UTC
+RP/0/RP0/CPU0:C8711-3-PE(config)#segment-routing
+RP/0/RP0/CPU0:C8711-3-PE(config-sr)#traffic-eng
+RP/0/RP0/CPU0:C8711-3-PE(config-sr-te)#interface FourHundredGigE0/0/0/1
+RP/0/RP0/CPU0:C8711-3-PE(config-sr-if)#metric 100
+RP/0/RP0/CPU0:C8711-3-PE(config-sr-if)#commit
+Wed Nov  4 10:57:34.299 UTC
+RP/0/RP0/CPU0:C8711-3-PE(config-sr-if)#end
+RP/0/RP0/CPU0:C8711-3-PE#
+</code></pre></div></p>
+<p>Then, go to <strong>Device Management &gt; Network Devices</strong>, select <strong>P5</strong> and <strong>PE3</strong>, and choose <strong>Sync-from devices to NSO</strong>.</p>
+<p><img alt="dcloud" src="../img/05/19_sync-from.png" /></p>
+<p>Configure an SRv6-TE policy with the following conditions:  </p>
+<ul>
+<li>Policy Name: PE1-PE3_color20</li>
+<li>Headend: PE1</li>
+<li>Endpoint: PE3 </li>
+<li>Optimization: TE</li>
+<li>Constraint: None  </li>
+</ul>
+<p>Since all links except the link between P5 and PE3 use the default cost, the path from PE1 to PE3 is computed as follows, avoiding the link between P5 and PE3.</p>
+<p><img alt="dcloud" src="../img/05/18_pe1-pe3_color20.png" /></p>
+<p>You can configure the policy using either of the following two methods.<br />
+<a href="#option-5-5-1-manually-configure-parameters">Option 1: Manually configure parameters</a><br />
+<a href="#option-5-5-2-import-json">Option 2: Import JSON</a>  </p>
+<h3 id="option-5-5-1-manually-configure-parameters">Option 5-5-1: Manually configure parameters<a class="headerlink" href="#option-5-5-1-manually-configure-parameters" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Go to <strong>Services &amp; Traffic Engineering &gt; Traffic Engineering</strong>, <strong>SRv6</strong> tab, then click <strong>Create</strong> &gt; <strong>PCC-init</strong>.
+    <img alt="dcloud" src="../img/05/03_create_pcc-init.png" /></p>
+</li>
+<li>
+<p>Click the <strong>+</strong> button.
+    <img alt="dcloud" src="../img/05/04_add_sr-policy.png" /></p>
+</li>
+<li>
+<p>Set the following:</p>
+<ul>
+<li>name: <code>PE1-PE3_color20</code></li>
+<li>headend: C8711-1-PE</li>
+<li>tail-end: 2001:db8::3</li>
+<li>color: 20</li>
+<li>preference: 100</li>
+<li>st-te-path-choice: dynamic-path (enable <code>dynamic</code> and select <code>pce</code>)</li>
+<li>metric-type: <code>te</code></li>
+<li>srv6: enable <code>locator</code> (locator-name: <code>srv6</code>, behavior: <code>ub6-insert-reduced</code>, and binding-sid-type: <code>srv6-dynamic</code>).</li>
+</ul>
+<p><img alt="dcloud" src="../img/05/20_sr-policy2_name.png" />
+<img alt="dcloud" src="../img/05/21_sr-policy2_settings1.png" />
+<img alt="dcloud" src="../img/05/22_sr-policy2_settings2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Dry-run</strong> to confirm the configuration. </p>
+<p><img alt="dcloud" src="../img/05/23_sr-policy2_dry-run1.png" /></p>
+<p>You can switch the display by using <strong>Show changes</strong> in the upper right.
+<img alt="dcloud" src="../img/05/24_sr-policy2_dry-run2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Commit changes</strong>.</p>
+<p><img alt="dcloud" src="../img/05/25_sr-policy2_commit.png" /></p>
+</li>
+</ol>
+<h3 id="option-5-5-2-import-json">Option 5-5-2: Import JSON<a class="headerlink" href="#option-5-5-2-import-json" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Load <strong>Home &gt; cnc-payloads &gt; PE1-PE3_color20.json</strong>.</p>
+<p><img alt="dcloud" src="../img/05/26_sr-policy2_payload.png" /></p>
+<details class="note">
+<summary>PE1-PE3_color20.json</summary>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">"cisco-sr-te-cfp:sr-te"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">"cisco-sr-te-cfp-sr-policies:policies"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">"policy"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">          </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PE1-PE3_color20"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"head-end"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C8711-1-PE"</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">],</span>
+<span class="w">            </span><span class="nt">"srv6"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">              </span><span class="nt">"locator"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"locator-name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"srv6"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"behavior"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ub6-insert-reduced"</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"binding-sid-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"srv6-dynamic"</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">"tail-end"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2001:db8::3"</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"color"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">"path"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">              </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">"preference"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">"dynamic"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                  </span><span class="nt">"pce"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span>
+<span class="w">                  </span><span class="nt">"metric-type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"te"</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">              </span><span class="p">}</span>
+<span class="w">            </span><span class="p">]</span>
+<span class="w">          </span><span class="p">}</span>
+<span class="w">        </span><span class="p">]</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+</code></pre></div>
+</details>
+</li>
+<li>
+<p>Confirm that the following parameters are set.</p>
+<ul>
+<li>name: <code>PE1-PE3_color20</code></li>
+<li>headend: C8711-1-PE</li>
+<li>endpoint: 2001:db8::3</li>
+<li>color: 20</li>
+<li>preference: 100</li>
+<li>st-te-path-choice: dynamic-path (enable <code>dynamic</code> and select <code>pce</code>)</li>
+<li>metric-type: <code>te</code></li>
+<li>srv6: enable <code>locator</code> (locator-name: <code>srv6</code>, behavior: <code>ub6-insert-reduced</code>, and binding-sid-type: <code>srv6-dynamic</code>).</li>
+</ul>
+<p><img alt="dcloud" src="../img/05/21_sr-policy2_settings1.png" />
+<img alt="dcloud" src="../img/05/22_sr-policy2_settings2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Dry-run</strong> to confirm the configuration. </p>
+<p><img alt="dcloud" src="../img/05/23_sr-policy2_dry-run1.png" /></p>
+<p>You can switch the display by using <strong>Show changes</strong> in the upper right.
+<img alt="dcloud" src="../img/05/24_sr-policy2_dry-run2.png" /></p>
+</li>
+<li>
+<p>Click <strong>Commit changes</strong>.</p>
+<p><img alt="dcloud" src="../img/05/25_sr-policy2_commit.png" /></p>
+</li>
+</ol>
+<h2 id="56-confirm-pcc-initiated-policy-2-te-metric">5.6 Confirm PCC-initiated policy 2 (TE metric)<a class="headerlink" href="#56-confirm-pcc-initiated-policy-2-te-metric" title="Permanent link">&para;</a></h2>
+<h3 id="via-cnc-gui_1">via CNC GUI<a class="headerlink" href="#via-cnc-gui_1" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Click <strong>PE1-PE3_color20</strong></p>
+<p><img alt="dcloud" src="../img/05/27_sr-policy2_confirm.png" /></p>
+</li>
+<li>
+<p>Confirm the details of the SR policy.</p>
+<p>As expected, the path avoids the link between P5 and PE3 and goes through PE2.
+<img alt="dcloud" src="../img/05/28_sr-policy2_detail1.png" /></p>
+<p>In the IGP path, you can see that it goes through P4. In the Summary on the right, you can also confirm that the Admin state and Oper state are Up, and check the Binding SID.
+<img alt="dcloud" src="../img/05/29_sr-policy2_detail2.png" /></p>
+<p>In the Candidate path, you can see that the uN SIDs of PE2 and PE3 are included in the SID list.
+<img alt="dcloud" src="../img/05/30_sr-policy2_detail3.png" /></p>
+</li>
+</ol>
+<h3 id="via-cli_1">via CLI<a class="headerlink" href="#via-cli_1" title="Permanent link">&para;</a></h3>
+<p>On PE1:</p>
+<pre><code>
+RP/0/RP0/CPU0:C8711-1-PE#show segment-routing traffic-eng policy name srte_c_20_ep_2001:db8::3
+Wed Nov  4 11:48:48.937 UTC
+
+SR-TE policy database
+---------------------
+
+Color: 20, End-point: 2001:db8::3
+  Name: srte_c_20_ep_2001:db8::3
+  Status:
+    <mark>Admin: up  Operational: up</mark> for 00:13:52 (since Nov  4 11:34:56.433)
+  Candidate-paths:
+    Preference: 100 (configuration) (active)
+      Name: srte_c_20_ep_2001:db8::3
+      Requested BSID: dynamic
+      PCC info:
+        Symbolic name: cfg_srte_c_20_ep_2001:db8::3_discr_100
+        PLSP-ID: 4
+      Constraints:
+        Protection Type: protected-preferred
+        Maximum SID Depth: 7 
+      Dynamic (pce 2001:db8::6) (valid)
+        <mark>Metric Type: TE</mark> (IANA PCEP/IGP: 2/2), Path Accumulated Metric: 30 
+          SID[0]: fcbb:bb00:2::/48 Behavior: uN (PSP/USD) (48)
+                  Format: f3216
+                  LBL:32 LNL:16 FL:0 AL:80
+                  Address: 2001:db8::2
+          SID[1]: fcbb:bb00:3::/48 Behavior: uN (PSP/USD) (48)
+                  Format: f3216
+                  LBL:32 LNL:16 FL:0 AL:80
+                  Address: 2001:db8::3
+      SRv6 Information: 
+        Locator: srv6
+        Binding SID requested: Dynamic
+        Binding SID behavior: uB6 (PSP/USD Insert.Red)
+        Explicit binding SID enforced: No
+        Install Final Node SID: No
+  Attributes:
+    Binding SID: fcbb:bb00:1:e003::
+    Forward Class: Not Configured
+    Steering labeled-services disabled: no
+    Steering BGP disabled: no
+    IPv6 caps enable: yes
+    Invalidation drop enabled: no
+    Max Install Standby Candidate Paths: 0
+    Path Type: SRV6
+
+RP/0/RP0/CPU0:C8711-1-PE#
+RP/0/RP0/CPU0:C8711-1-PE#show segment-routing srv6 locator srv6 sid 
+Wed Nov  4 11:49:49.059 UTC
+SID                         Behavior          Identification                    Owner               State  RW
+--------------------------  ----------------  --------------------------------  ------------------  -----  --
+fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
+fcbb:bb00:1:e000::          uA (PSP/USD)      [FH0/0/0/0, Link-Local]:0         isis-1              InUse  Y 
+fcbb:bb00:1:e001::          uA (PSP/USD)      [FH0/0/0/1, Link-Local]:0         isis-1              InUse  Y 
+fcbb:bb00:1:e002::          uB6 (PSP/USD Insert.Red)  'srte_c_10_ep_2001:db8::2' (10, 2001:db8::2)  xtc_srv6            InUse  Y 
+<mark>fcbb:bb00:1:e003::          uB6 (PSP/USD Insert.Red)  'srte_c_20_ep_2001:db8::3' (20, 2001:db8::3)  xtc_srv6            InUse  Y</mark> 
+RP/0/RP0/CPU0:C8711-1-PE#
+</code></pre>
+
+<p>On the SR-PCE:</p>
+<pre><code>
+RP/0/RP0/CPU0:pce#show pce lsp tabular 
+Wed Nov  4 11:51:19.152 UTC
+PCC            Tunnel Name     Color Source         Destination    TunID LSPID Admin Oper  
+2001:db8::1    cfg_srte_c_10_e 10    2001:db8::1    2001:db8::2    2     2     up    active
+<mark>2001:db8::1    cfg_srte_c_20_e 20    2001:db8::1    2001:db8::3    4     2     up    active</mark>
+RP/0/RP0/CPU0:pce#
+RP/0/RP0/CPU0:pce#
+RP/0/RP0/CPU0:pce#show pce lsp detail                     
+Wed Nov  4 11:52:06.452 UTC
+
+PCE's tunnel database: 
+----------------------
+PCC 2001:db8::1: 
+
+<--- omitted --->
+
+Tunnel Name: cfg_srte_c_20_ep_2001:db8::3_discr_100
+Color: 20
+Interface Name: srte_c_20_ep_2001:db8::3
+ LSPs:
+  LSP[0]:
+   source 2001:db8::1, destination 2001:db8::3, tunnel ID 4, LSP ID 2
+   <mark>State: Admin up, Operation active</mark>
+   Setup type: SRv6
+   Binding SID: fcbb:bb00:1:e003:: Behavior: uB6 (PSP/USD Insert.Red) (79)
+                LBL:32 LNL:16 FL:16 AL:0
+   Maximum SID Depth: 7
+   Preference: 100
+   Bandwidth: requested 0 kbps, applied 0 kbps
+   Protection type: protected-preferred
+   Prefix-SID algorithm: 0 (set: 0)
+   PCEP information: 
+     PLSP-ID 0x4, flags: D:1 S:0 R:0 A:1 O:2 C:0
+   LSP Role: Single LSP
+   State-sync PCE: None
+   PCC: 2001:db8::1
+   LSP is subdelegated to: None
+   LSP is subdelegated over GRPC: None
+   Reported path: 
+     <mark>Metric type: TE (2)</mark>, Accumulated Metric 30
+      SID[0]: fcbb:bb00:2:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::2
+      SID[1]: fcbb:bb00:3:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::3
+   Computed path: (Local PCE)
+     Computed Time: Wed Nov 04 11:35:15 UTC 2026 (00:16:51 ago)
+     Metric type: TE (2), Accumulated Metric 30
+      SID[0]: fcbb:bb00:2:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::2
+      SID[1]: fcbb:bb00:3:: Behavior: uN (PSP/USD) (48)
+              LBL:32 LNL:16 FL:0 AL:80 Algo:0
+              Address 2001:db8::3
+   Reverse path: (Local PCE) 
+     None
+     Computed Time: Wed Nov 04 11:35:15 UTC 2026 (00:16:51 ago)
+   Recorded path: 
+     None
+   Disjoint Group Information: 
+     None
+   SR Policy Association Group:
+     Color: 20, Endpoint: 2001:db8::3
+     Policy Name: srte_c_20_ep_2001:db8::3
+     Preference: 100
+     CP Name: srte_c_20_ep_2001:db8::3
+
+RP/0/RP0/CPU0:pce#
+</code></pre>
+
+<h2 id="done-when">Done when<a class="headerlink" href="#done-when" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>PE1-PE2_color10</code> is up with color 10 and is displayed on the map.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>PE1-PE3_color20</code> is up with color 20 and is displayed on the map.</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
