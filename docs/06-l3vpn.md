@@ -2,7 +2,7 @@
 
 **Time:** 60 minutes.
 
-**Objective:** Create one L3VPN from CNC. NSO renders the device configuration from the IETF L3VPN network model. Steer the VPN onto the PCC-initiated SRv6 policy from chapter 5.
+**Objective:** Create one L3VPN from CNC. NSO renders the device configuration from the IETF L3VPN network model. 
 
 ## 6.1 What you are about to commit
 
@@ -11,7 +11,6 @@
 | Service name | `CustA` |
 | Endpoints | PE1, PE2, PE3 |
 | Route distinguisher and route targets | 100:100 |
-| Steering | `PE1-PE2_color10` |
 | Transport | SRv6 |
 
 ## 6.2 Pre-check

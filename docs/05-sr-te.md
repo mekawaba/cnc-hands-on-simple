@@ -1,4 +1,4 @@
-# 5. SR-TE and SRv6
+# 5. SR-TE and SRv6 (Optional)
 
 **Time:** 60 minutes.
 
