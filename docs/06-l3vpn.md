@@ -1,6 +1,6 @@
 # 6. L3VPN provisioning
 
-**Time:** 60 minutes.
+**Time:** 30 minutes.
 
 **Objective:** Create one L3VPN from CNC. NSO renders the device configuration from the IETF L3VPN network model. 
 
@@ -66,9 +66,15 @@ router bgp 65000
 
 Because there are many configuration parameters, load a JSON file to configure the L3VPN settings.
 
-1. Go to **Services & Traffic Engineering > Provisioning (NSO)**, then click **L3VPN-Service**.
+1. Open a terminal and clone the JSON file repository from Git.
 
-2. Load **Home > cnc-payloads > L3VPN_CustA.json**.
+    ```
+    git clone https://github.com/mekawaba/cnc-payloads.git
+    ```
+
+2. Go to **Services & Traffic Engineering > Provisioning (NSO)**, then click **L3VPN-Service**.
+
+3. Load **Home > cnc-payloads > L3VPN_CustA.json**.
 
     ![dcloud](img/06/02_load_CustA.png)
 
@@ -251,7 +257,7 @@ Because there are many configuration parameters, load a JSON file to configure t
             }
         ```
 
-3. Confirm that the following parameters are set.
+4. Confirm that the following parameters are set.
     - vpn-id: `CustA`
     - vpn-service-topology: `custom`
 
@@ -316,14 +322,14 @@ Because there are many configuration parameters, load a JSON file to configure t
 
     ![dcloud](img/06/11_L3VPN_settings9.png)
 
-4. Click **Dry-run** to confirm the configuration. 
+5. Click **Dry-run** to confirm the configuration. 
 
     ![dcloud](img/06/12_L3VPN_dry-run1.png)
 
     You can switch the display by using **Show changes** in the upper right.
     ![dcloud](img/06/13_L3VPN_dry-run2.png)
 
-5. Click **Commit changes**.
+6. Click **Commit changes**.
 
     ![dcloud](img/06/14_L3VPN_commit.png)
 
