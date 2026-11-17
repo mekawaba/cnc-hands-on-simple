@@ -762,7 +762,7 @@
 
 
 <h1 id="6-l3vpn-provisioning">6. L3VPN provisioning<a class="headerlink" href="#6-l3vpn-provisioning" title="Permanent link">&para;</a></h1>
-<p><strong>Time:</strong> 60 minutes.</p>
+<p><strong>Time:</strong> 30 minutes.</p>
 <p><strong>Objective:</strong> Create one L3VPN from CNC. NSO renders the device configuration from the IETF L3VPN network model. </p>
 <h2 id="61-what-you-are-about-to-commit">6.1 What you are about to commit<a class="headerlink" href="#61-what-you-are-about-to-commit" title="Permanent link">&para;</a></h2>
 <table>
@@ -839,6 +839,11 @@ router bgp 65000
 <h2 id="63-create-l3vpn-service">6.3 Create L3VPN service<a class="headerlink" href="#63-create-l3vpn-service" title="Permanent link">&para;</a></h2>
 <p>Because there are many configuration parameters, load a JSON file to configure the L3VPN settings.</p>
 <ol>
+<li>
+<p>Open a terminal and clone the JSON file repository from Git.</p>
+<div class="highlight"><pre><span></span><code>git clone https://github.com/mekawaba/cnc-payloads.git
+</code></pre></div>
+</li>
 <li>
 <p>Go to <strong>Services &amp; Traffic Engineering &gt; Provisioning (NSO)</strong>, then click <strong>L3VPN-Service</strong>.</p>
 </li>
