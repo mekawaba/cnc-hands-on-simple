@@ -1,4 +1,4 @@
 # CNC hands-on scenario
 Please refer to following
 
-https://hitakaha.github.io/cnc-hands-on/site/
+https://mekawaba.github.io/cnc-hands-on-simple
